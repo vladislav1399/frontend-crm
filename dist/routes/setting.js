@@ -1,0 +1,27 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const user_1 = __importDefault(require("../controllers/user"));
+const warehouse_1 = __importDefault(require("../controllers/warehouse"));
+const bar_code_1 = __importDefault(require("../controllers/bar-code"));
+const profession_1 = __importDefault(require("../controllers/profession"));
+const upload_1 = __importDefault(require("../middleware/upload"));
+const router = express_1.default.Router();
+router.get('/users', user_1.default.getUser);
+router.get('/users/:id', user_1.default.getUserById);
+router.delete('/users/:id', user_1.default.deleteUser);
+router.post('/users', upload_1.default.single('image'), user_1.default.createUser);
+router.patch('/users/:id', user_1.default.updateUser);
+router.get('/warehouse', warehouse_1.default.getWarehouse);
+router.get('/warehouse/:id', warehouse_1.default.getWarehouseById);
+// router.delete('/warehouse/:id', warehouseController.deleteWarehouse);
+router.post('/warehouse', warehouse_1.default.createWarehouse);
+// router.patch('/warehouse/:id', warehouseController.updateWarehouse);
+router.get('/bar-code', bar_code_1.default.getLastBarCode);
+router.get('/professions', profession_1.default.getAllProfessions);
+router.post('/professions', profession_1.default.createProfessions);
+router.delete('/professions/:id', profession_1.default.removeProfession);
+exports.default = router;
